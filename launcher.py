@@ -14,7 +14,6 @@ def get_search_result(key, i):
     key = key.replace(" ", "+")
     page = "&page=" + str(i)
     url = URL1 + key + URL2 + "&keywords=" + key + page
-    print(url)
     headers = {
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'Accept-Encoding': 'gzip',
@@ -53,7 +52,7 @@ def get_search_result(key, i):
                 result += star[0].text + '    '
                 result += star[0].find_next('a').text
             result += '\n\n'
-    return result
+    return result, url
 
 
 def search_key(app):
@@ -62,13 +61,13 @@ def search_key(app):
     get_next = True
     fl = open(key + '.txt', 'wb')
     while get_next:
-        message = get_search_result(key, i)
+        message, url = get_search_result(key, i)
         if message == "":
             app.errorBox("没了", "上一页是最后一页")
             get_next = False
         else:
             fl.write(message.encode(errors='ignore'))
-            get_next = app.yesNoBox("第" + str(i) + "页", "继续抓取下一页？")
+            get_next = app.yesNoBox("第" + str(i) + "页", url + "\n\n继续抓取下一页？")
         i += 1
     fl.close()
 
