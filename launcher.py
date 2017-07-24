@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup
 
 URL1 = "https://www.amazon.com/gp/search/ref=sr_il_to_mobile?fst=as%3Aon&rh=k%3A"
 URL2 = "%2Cn%3A2335752011%2Cn%3A2407760011%2Cn%3A3081461011&lo=none"
-START = '<ul i'
-END = 'v></div></li></ul>'
 
 
 def get_search_result(key, i):
@@ -30,13 +28,11 @@ def get_search_result(key, i):
     html = res.read()
     data = gzip.decompress(html)
     data = str(data, 'utf-8')
-    start = data.find(START)
-    end = data.find(END) + len(END)
-    data = data[start:end]
     soup = BeautifulSoup(data, "html.parser")
     items = soup.select("div.s-item-container")
     result = ""
     if items:
+        print(len(items))
         for item in items:
             if item.find(text="Sponsored"):
                 result += "Sponsored    "
