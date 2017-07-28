@@ -39,10 +39,10 @@ def get_search_result(key, i):
             else:
                 result += "     "
             result += item.h2.text + '    '
-            price = item.select("span['aria-label']")
+            price = item.select("span.a-offscreen")
             if price:
-                result += 'by ' + price[0].find_previous("span").text + '    '
-                result += price[0]['aria-label'] + '    '
+                result += 'by ' + price[0].find_previous("span").find_previous("span").text + '    '
+                result += price[0].text + '    '
             star = item.select("i.a-icon-star span.a-icon-alt")
             if star:
                 result += star[0].text + '    '
