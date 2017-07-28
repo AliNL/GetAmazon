@@ -43,6 +43,10 @@ def get_search_result(key, i):
             if price:
                 result += 'by ' + price[0].find_previous("span").find_previous("span").text + '    '
                 result += price[0].text + '    '
+            else:
+                price = item.select("span['aria-label']")
+                result += 'by ' + price[0].find_previous("span").text + '    '
+                result += price[0]['aria-label'] + '    '
             star = item.select("i.a-icon-star span.a-icon-alt")
             if star:
                 result += star[0].text + '    '
