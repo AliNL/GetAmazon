@@ -56,7 +56,8 @@ def get_search_result(key, i):
 
 def search_key(app):
     key = app.getEntry("key")
-    i = 1
+    page = app.getEntry("page")
+    i = int(page)
     get_next = True
     fl = open(key + '.txt', 'wb')
     while get_next:
@@ -79,7 +80,10 @@ def main():
     app.setGuiPadding(30, 30)
     app.addLabel("key", "搜索词", 0, 0, 1, 1)
     app.addEntry("key", 0, 1, 1, 1)
-    app.addButton("开始", search, 1, 0, 2, 1)
+    app.addLabel("page", "开始页", 1, 0, 1, 1)
+    app.addNumericEntry("page", 1, 1, 1, 1)
+    app.setEntry("page", "1")
+    app.addButton("开始", search, 2, 0, 2, 1)
     app.go()
 
 
